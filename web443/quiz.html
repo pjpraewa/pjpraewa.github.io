@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+	<style type="text/css">
+		body, html {
+    		height: 100%;
+   			font-family: "Inconsolata", sans-serif;
+		}
+		
+		.index > header {
+    		background-position: center;
+    		background-size: cover;
+    		background-image: url("bg07.jpg");
+    		min-height: 45%;
+    		margin: 0px auto 0px auto;
+    		/*text-align: center;*/
+		}
+		.choices{
+			margin: 0px auto 0px auto;
+			background-color: : rgb(255,0,0);
+		}	
+		.timmer{
+			margin: 0px auto 0px auto;
+			text-align: right;
+		}
+		.number{
+			margin: 0px auto 0px auto;
+			text-align: right;
+		}
+			body, html {
+    		height: 100%;
+   			font-family: "Inconsolata", sans-serif;
+		}
+		.bgimg {
+    		background-position: center;
+    		background-size: cover;
+    		background-image: url("bg07.jpg");
+    		min-height: 50%;
+    		margin: 0px auto 0px auto;
+		}
+		.btn{
+			margin: 0px auto 0px auto;  
+		}
+		</style>
+</head>
+<body>
+<header class="bgimg w3-display-container w3-grayscale-min" id="home" hidden="true">
+  <div class="w3-display-middle w3-center">
+
+  	<br></br>
+   <CENTER> <span class="w3-text-white" style="font-size:90px ; color: rgb(255,255,255);">WELCOME TO<br>Q & A Game</span></CENTER>
+  </div>
+</header>
+
+<div class="w3-container" id="about" hidden="true">
+  <div class="w3-content" style="max-width:700px">
+    <h2 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">Choose the number of questions</span></h2>
+  </div>
+    <div class="btn w3-center w3-row" style="border: solid black ; max-width:1000px;">
+  		<center><div class=" w3-col s5 w3-margin w3-button w3-dark-grey w3-center" id = "btn1"><p>10</p></div></center>
+  		<center><div class="w3-col s5 w3-margin w3-button w3-dark-grey w3-center" id = "btn2"><p>20</p></div></center>
+	</div>
+</div>
+
+
+<CENTER><header style="max-width:70% ;border: solid black" id="head1">
+	<div class="timmer " style="max-width:70% ;  font-size:20px" id="status"></div>
+	<div class="number" style="max-width:70% ; font-size:20px" >Number of Questions <span id = "number"></span> 
+	</div>
+</header></CENTER>
+
+<div class="bgimg w3-display-container " style="max-width:70% ; border: solid black" id="qu">
+  	<br></br>
+   <div class="question w3-display-middle w3-center" style="font-size:50px ; color: rgb(255,255,255)"> <span>question</span> </div>
+</div>
+<div class="choices " style="max-width:70% ; border: solid black" id="c">
+	<div class=" w3-row w3-content" style="max-width:50%">
+  		<div class="w3-col s12 w3-center" ><p><button class="w3-button w3-block w3-black " id="c1" style=" font-size:20px">Button</button></p></div>
+ 	 	<div class="w3-col s12 w3-center" ><p><button class="w3-button w3-block w3-black " id="c2" style=" font-size:20px">Button</button></p></div>
+ 	 	<div class="w3-col s12 w3-center" ><p><button class="w3-button w3-block w3-black " id="c3" style=" font-size:20px">Button</button></p></div>
+ 	 	<div class="w3-col s12 w3-center" ><p><button class="w3-button w3-block w3-black " id="c4" style=" font-size:20px">Button</button></p></div>
+	</div>
+</div>
+
+
+<script src="jquery-3.3.1.min.js" charset="utf-8"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script >
+		console.log("AAA");
+		var num ;
+	
+		var score = 0 ;
+		var choice1 = "";
+		var choice2 = "";
+		var choice3 = "";
+		var choice4 = "";
+		var ans = "";
+		var n = 0;
+		var lstqusetion
+		var c = 0 ;
+		var lstnum = []
+		var timer;
+
+	$('#head1').hide();
+	$('#qu').hide();
+	$('#c').hide();
+	$('#home').show();
+	$('#about').show();
+
+	$('#btn1').click(function(){
+		num = 10 ;
+		$('#number').html(num);
+		$('#home').hide();
+		$('#about').hide();
+		$('#head1').show();
+		$('#qu').show();
+		$('#c').show();
+		console.log("Num " + num)
+		selectqusetion(lstqusetion, num);
+
+	})
+	$('#btn2').click(function(){
+		num = 20;
+		$('#number').html(num);
+		$('#home').hide();
+		$('#about').hide();
+		$('#head1').show();
+		$('#qu').show();
+		$('#c').show();
+		console.log("Num " + num)
+		selectqusetion(lstqusetion, num);
+	})
+
+	$('#c1').click(function(){
+		checkscore(choice1,ans);
+		selectqusetion(lstqusetion, num);
+		countquestion();
+	});
+	$('#c2').click(function(){
+		checkscore(choice2,ans);
+		selectqusetion(lstqusetion, num);
+		countquestion();
+	});
+	$('#c3').click(function(){
+		checkscore(choice3,ans);
+		selectqusetion(lstqusetion, num);
+		countquestion();
+	});
+	$('#c4').click(function(){
+		checkscore(choice4,ans);
+		selectqusetion(lstqusetion, num);
+		countquestion();
+	});
+
+	$(document).ready(function(){
+
+	$.ajax({
+			url:'quiz10.json',
+			method : 'GET',
+			data: 'jasonObj',
+			success:function(response){
+
+				lstqusetion = response;
+			/*	selectqusetion(lstqusetion,10);*/
+				
+				// countDown(10,"status");
+			
+			}
+		});
+	});
+
+	function checkscore(result, ans1) {
+		if (result === ans1){
+			score = score + 1;
+		} 
+		console.log("score : "+ score);
+	/*alert("score : " + score);*/
+	}
+
+	function countquestion(){
+		if(c === num){
+			clearTimeout(timer);
+			swal(
+  			'Good job!',
+  			'Score ' + score,
+ 			 'success'
+			)	
+		}
+
+	}
+	function checkdupnum(rnum){
+		if (c < num){
+			for (i = 0 ; i <lstnum.length; i++){
+				if(lstnum[i] === rnum){
+					return false
+				}
+			}
+		return true
+		}
+	}
+
+	function selectqusetion(lstqusetion,num1){
+		clearTimeout(timer);
+		countDown(10,"status");
+		if (c === 0){
+			n = Math.floor(Math.random() * num1);
+			lstnum.push(n)
+		}else{
+			n = Math.floor(Math.random() * num1);
+			while(checkdupnum(n)=== false){
+				n = Math.floor(Math.random() * num1);
+				checkdupnum(n)
+			}
+			lstnum.push(n)
+		}
+			
+		console.log(lstnum)		
+		console.log("n " + n );
+		$('.question > span').html(lstqusetion[n].q);
+		$('#c1').html(lstqusetion[n].c1);
+		choice1 = lstqusetion[n].c1;
+		$('#c2').html(lstqusetion[n].c2);
+		choice2 = lstqusetion[n].c2;
+		$('#c3').html(lstqusetion[n].c3);
+		choice3 = lstqusetion[n].c3;
+		$('#c4').html(lstqusetion[n].c4);
+		choice4 = lstqusetion[n].c4;
+		ans = lstqusetion[n].ans;
+		c = c+1 ;
+		console.log	("c " + c);
+
+	}
+	function countDown(secs,elem) {
+		var element = document.getElementById(elem);
+		element.innerHTML = "Time : "+secs+" seconds";
+		if(secs < 1) {
+
+			clearTimeout(timer);
+			/*element.innerHTML = '<h2>Countdown Complete!</h2>';
+			element.innerHTML += '<a href="#">Click here now</a>';*/
+			selectqusetion(lstqusetion, num);
+			countquestion();
+			secs = 10;
+			// 
+			
+		}
+	
+		secs--;
+		timer = setTimeout('countDown('+secs+',"'+elem+'")',1000);
+		/*selectqusetion(lstqusetion, 10);*/
+	}
+
+</script>
+
+</body>
+</html>
